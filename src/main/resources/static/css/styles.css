@@ -1,0 +1,89 @@
+:root {
+    --learnsphere-blue: #1455c0;
+    --learnsphere-dark: #10233f;
+    --learnsphere-background: #f4f7fb;
+}
+
+body {
+    color: #172033;
+}
+
+.hero-section {
+    background: linear-gradient(
+        135deg,
+        var(--learnsphere-dark),
+        var(--learnsphere-blue)
+    );
+}
+
+.feature-card,
+.step-card,
+.course-card,
+.filter-card,
+.form-card,
+.details-card,
+.summary-card {
+    padding: 1.5rem;
+    border: 1px solid #dce4ef;
+    border-radius: 1rem;
+    background: white;
+    box-shadow: 0 0.5rem 1.5rem rgba(16, 35, 63, 0.07);
+}
+
+.course-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.course-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1rem 2rem rgba(16, 35, 63, 0.13);
+}
+
+.course-code {
+    color: var(--learnsphere-blue);
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.step-number {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+    place-items: center;
+    border-radius: 50%;
+    color: white;
+    background: var(--learnsphere-blue);
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.filter-card {
+    background: var(--learnsphere-background);
+}
+
+.form-card {
+    max-width: 900px;
+}
+
+.summary-card {
+    background: var(--learnsphere-background);
+    box-shadow: none;
+}
+
+.form-label {
+    font-weight: 600;
+}
+
+@media (max-width: 576px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .form-card,
+    .details-card,
+    .filter-card {
+        padding: 1rem;
+    }
+}
