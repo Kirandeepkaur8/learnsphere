@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: head('Home')}"></head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<nav th:replace="~{fragments :: navigation}"></nav>
+
+<main class="flex-grow-1">
+
+    <section class="hero-section text-white">
+        <div class="container py-5">
+            <div class="row align-items-center py-5">
+                <div class="col-lg-8">
+
+                    <p class="text-uppercase fw-bold">
+                        Learn with purpose
+                    </p>
+
+                    <h1 class="display-3 fw-bold">
+                        Build practical skills for your future.
+                    </h1>
+
+                    <p class="lead my-4">
+                        LearnSphere helps students discover structured,
+                        career-focused online courses.
+                    </p>
+
+                    <a class="btn btn-warning btn-lg me-2"
+                       th:href="@{/courses}">
+                        Browse Courses
+                    </a>
+
+                    <a class="btn btn-outline-light btn-lg"
+                       th:href="@{/how-it-works}">
+                        How It Works
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container py-5">
+
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Why LearnSphere?</h2>
+
+            <p class="text-secondary">
+                A simple and organized platform for modern learning.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <div class="feature-card h-100">
+                    <h3 class="h5 fw-bold">Explore</h3>
+                    <p>
+                        Browse courses from several professional categories.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card h-100">
+                    <h3 class="h5 fw-bold">Compare</h3>
+                    <p>
+                        Compare course level, duration, instructor and price.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card h-100">
+                    <h3 class="h5 fw-bold">Progress</h3>
+                    <p>
+                        Choose learning opportunities that match your goals.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>

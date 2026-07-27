@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Add Course')}"></head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<nav th:replace="~{fragments :: navigation}"></nav>
+
+<main class="container flex-grow-1 py-5">
+
+    <div class="form-card mx-auto">
+
+        <h1 class="fw-bold">Add a New Course</h1>
+
+        <p class="text-secondary">
+            Complete all required fields before saving.
+        </p>
+
+        <form method="post"
+              th:action="@{/courses}"
+              th:object="${course}">
+
+            <div class="alert alert-danger"
+                 th:if="${#fields.hasAnyErrors()}">
+                Please correct the errors shown below.
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-md-4">
+                    <label for="courseCode" class="form-label">
+                        Course Code
+                    </label>
+
+                    <input id="courseCode"
+                           type="text"
+                           class="form-control"
+                           th:classappend="${#fields.hasErrors('courseCode')}
+                                ? 'is-invalid'"
+                           th:field="*{courseCode}"
+                           placeholder="WEB-101">
+
+                    <div class="invalid-feedback"
+                         th:errors="*{courseCode}">
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <label for="title" class="form-label">
+                        Course Title
+                    </label>
+
+                    <input id="title"
+                           type="text"
+                           class="form-control"
+                           th:classappend="${#fields.hasErrors('title')}
+                                ? 'is-invalid'"
+                           th:field="*{title}">
+
+                    <div class="invalid-feedback"
+                         th:errors="*{title}">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="instructorName" class="form-label">
+                        Instructor Name
+                    </label>
+
+                    <input id="instructorName"
+                           type="text"
+                           class="form-control"
+                           th:classappend="${#fields.hasErrors('instructorName')}
+                                ? 'is-invalid'"
+                           th:field="*{instructorName}">
+
+                    <div class="invalid-feedback"
+                         th:errors="*{instructorName}">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="category" class="form-label">
+                        Category
+                    </label>
+
+                    <select id="category"
+                            class="form-select"
+                            th:classappend="${#fields.hasErrors('category')}
+                                ? 'is-invalid'"
+                            th:field="*{category}">
+
+                        <option value="">Choose...</option>
+
+                        <option th:each="item : ${categories}"
+                                th:value="${item}"
+                                th:text="${item.displayName}">
+                        </option>
+                    </select>
+
+                    <div class="invalid-feedback"
+                         th:errors="*{category}">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="difficulty" class="form-label">
+                        Difficulty
+                    </label>
+
+                    <select id="difficulty"
+                            class="form-select"
+                            th:classappend="${#fields.hasErrors('difficulty')}
+                                ? 'is-invalid'"
+                            th:field="*{difficulty}">
+
+                        <option value="">Choose...</option>
+
+                        <option th:each="item : ${difficultyLevels}"
+                                th:value="${item}"
+                                th:text="${item.displayName}">
+                        </option>
+                    </select>
+
+                    <div class="invalid-feedback"
+                         th:errors="*{difficulty}">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="durationWeeks" class="form-label">
+                        Duration in Weeks
+                    </label>
+
+                    <input id="durationWeeks"
+                           type="number"
+                           min="1"
+                           max="52"
+                           class="form-control"
+                           th:classappend="${#fields.hasErrors('durationWeeks')}
+                                ? 'is-invalid'"
+                           th:field="*{durationWeeks}">
+
+                    <div class="invalid-feedback"
+                         th:errors="*{durationWeeks}">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="price" class="form-label">
+                        Price
+                    </label>
+
+                    <input id="price"
+                           type="number"
+                           min="0"
+                           max="9999.99"
+                           step="0.01"
+                           class="form-control"
+                           th:classappend="${#fields.hasErrors('price')}
+                                ? 'is-invalid'"
+                           th:field="*{price}">
+
+                    <div class="invalid-feedback"
+                         th:errors="*{price}">
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="description" class="form-label">
+                        Description
+                    </label>
+
+                    <textarea id="description"
+                              rows="5"
+                              class="form-control"
+                              th:classappend="${#fields.hasErrors('description')}
+                                ? 'is-invalid'"
+                              th:field="*{description}">
+                    </textarea>
+
+                    <div class="invalid-feedback"
+                         th:errors="*{description}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">
+                    Save Course
+                </button>
+
+                <a class="btn btn-outline-secondary"
+                   th:href="@{/courses}">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>

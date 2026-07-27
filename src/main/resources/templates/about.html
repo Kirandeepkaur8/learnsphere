@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('About')}"></head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<nav th:replace="~{fragments :: navigation}"></nav>
+
+<main class="container flex-grow-1 py-5">
+
+    <h1 class="display-5 fw-bold">About LearnSphere</h1>
+
+    <p class="lead text-secondary mt-4">
+        LearnSphere is an online learning platform designed to help
+        students discover practical and career-focused courses.
+    </p>
+
+    <div class="row g-4 mt-3">
+        <div class="col-md-6">
+            <div class="feature-card h-100">
+                <h2 class="h4">For Students</h2>
+                <p>
+                    Students can explore available courses, compare learning
+                    levels and review important course information.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="feature-card h-100">
+                <h2 class="h4">For Instructors</h2>
+                <p>
+                    Instructors can create structured courses with category,
+                    difficulty, duration, price and description information.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Course Details')}"></head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<nav th:replace="~{fragments :: navigation}"></nav>
+
+<main class="container flex-grow-1 py-5">
+
+    <div class="alert alert-success"
+         th:if="${successMessage}"
+         th:text="${successMessage}">
+    </div>
+
+    <a th:href="@{/courses}" class="text-decoration-none">
+        ← Back to Courses
+    </a>
+
+    <article class="details-card mt-4">
+
+        <span class="course-code"
+              th:text="${course.courseCode}">
+        </span>
+
+        <h1 class="display-5 fw-bold mt-3"
+            th:text="${course.title}">
+        </h1>
+
+        <p class="lead text-secondary">
+            Instructor:
+            <span th:text="${course.instructorName}"></span>
+        </p>
+
+        <hr>
+
+        <div class="row g-4">
+            <div class="col-md-8">
+                <h2 class="h4">Course Description</h2>
+
+                <p th:text="${course.description}"></p>
+            </div>
+
+            <div class="col-md-4">
+                <div class="summary-card">
+                    <p>
+                        <strong>Category:</strong><br>
+                        <span th:text="${course.category.displayName}"></span>
+                    </p>
+
+                    <p>
+                        <strong>Difficulty:</strong><br>
+                        <span th:text="${course.difficulty.displayName}"></span>
+                    </p>
+
+                    <p>
+                        <strong>Duration:</strong><br>
+                        <span th:text="${course.durationWeeks}"></span>
+                        weeks
+                    </p>
+
+                    <p>
+                        <strong>Price:</strong><br>
+                        $<span th:text="${course.price}"></span>
+                    </p>
+
+                    <p class="mb-0">
+                        <strong>Date Added:</strong><br>
+                        <span th:text="${course.createdAt.toLocalDate()}"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>

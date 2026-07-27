@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: head('Courses')}"></head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<nav th:replace="~{fragments :: navigation}"></nav>
+
+<main class="container flex-grow-1 py-5">
+
+    <div class="d-flex flex-wrap justify-content-between
+                align-items-center gap-3 mb-4">
+
+        <div>
+            <h1 class="fw-bold">Course Catalogue</h1>
+
+            <p class="text-secondary mb-0">
+                Search, filter and sort the available courses.
+            </p>
+        </div>
+
+        <a class="btn btn-primary"
+           th:href="@{/courses/new}">
+            Add Course
+        </a>
+    </div>
+
+    <!-- Search, filter and sorting form -->
+    <form method="get"
+          th:action="@{/courses}"
+          class="filter-card mb-4">
+
+        <div class="row g-3">
+
+            <div class="col-lg-4">
+                <label for="keyword"
+                       class="form-label">
+                    Search
+                </label>
+
+                <input id="keyword"
+                       name="keyword"
+                       type="search"
+                       class="form-control"
+                       th:value="${keyword}"
+                       placeholder="Title, code or instructor">
+            </div>
+
+            <div class="col-md-6 col-lg-2">
+                <label for="category"
+                       class="form-label">
+                    Category
+                </label>
+
+                <select id="category"
+                        name="category"
+                        class="form-select">
+
+                    <option value="">All categories</option>
+
+                    <option th:each="item : ${categories}"
+                            th:value="${item}"
+                            th:text="${item.displayName}"
+                            th:selected="${item == selectedCategory}">
+                        Category
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-6 col-lg-2">
+                <label for="difficulty"
+                       class="form-label">
+                    Difficulty
+                </label>
+
+                <select id="difficulty"
+                        name="difficulty"
+                        class="form-select">
+
+                    <option value="">All levels</option>
+
+                    <option th:each="item : ${difficultyLevels}"
+                            th:value="${item}"
+                            th:text="${item.displayName}"
+                            th:selected="${item == selectedDifficulty}">
+                        Difficulty
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-6 col-lg-2">
+                <label for="sortBy"
+                       class="form-label">
+                    Sort By
+                </label>
+
+                <select id="sortBy"
+                        name="sortBy"
+                        class="form-select">
+
+                    <option value="title"
+                            th:selected="${sortBy == 'title'}">
+                        Title
+                    </option>
+
+                    <option value="courseCode"
+                            th:selected="${sortBy == 'courseCode'}">
+                        Course Code
+                    </option>
+
+                    <option value="durationWeeks"
+                            th:selected="${sortBy == 'durationWeeks'}">
+                        Duration
+                    </option>
+
+                    <option value="price"
+                            th:selected="${sortBy == 'price'}">
+                        Price
+                    </option>
+
+                    <option value="createdAt"
+                            th:selected="${sortBy == 'createdAt'}">
+                        Date Added
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-6 col-lg-2">
+                <label for="direction"
+                       class="form-label">
+                    Order
+                </label>
+
+                <select id="direction"
+                        name="direction"
+                        class="form-select">
+
+                    <option value="asc"
+                            th:selected="${direction == 'asc'}">
+                        Ascending
+                    </option>
+
+                    <option value="desc"
+                            th:selected="${direction == 'desc'}">
+                        Descending
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mt-3 d-flex gap-2">
+            <button type="submit"
+                    class="btn btn-primary">
+                Apply Filters
+            </button>
+
+            <a class="btn btn-outline-secondary"
+               th:href="@{/courses}">
+                Clear
+            </a>
+        </div>
+    </form>
+
+    <!-- Number of results -->
+    <div class="d-flex justify-content-between
+                align-items-center mb-3">
+
+        <p class="text-secondary mb-0"
+           th:text="${coursePage.totalElements + ' course(s) found'}">
+            Courses found
+        </p>
+
+        <p class="text-secondary mb-0"
+           th:if="${coursePage.totalPages > 0}"
+           th:text="${'Page ' + (coursePage.number + 1)
+                   + ' of ' + coursePage.totalPages}">
+            Page 1
+        </p>
+    </div>
+
+    <!-- No-results message -->
+    <div th:if="${coursePage.empty}"
+         class="alert alert-info">
+
+        No courses match your search or filters.
+
+        <a th:href="@{/courses}"
+           class="alert-link">
+            Show all courses
+        </a>
+    </div>
+
+    <!-- Course cards -->
+    <div class="row g-4"
+         th:unless="${coursePage.empty}">
+
+        <div class="col-md-6 col-xl-4"
+             th:each="course : ${coursePage.content}">
+
+            <article class="course-card h-100
+                            d-flex flex-column">
+
+                <div class="d-flex justify-content-between
+                            align-items-start gap-2">
+
+                    <span class="course-code"
+                          th:text="${course.courseCode}">
+                        WEB-101
+                    </span>
+
+                    <span class="badge text-bg-light"
+                          th:text="${course.difficulty.displayName}">
+                        Beginner
+                    </span>
+                </div>
+
+                <p class="text-primary fw-semibold
+                          mt-3 mb-1"
+                   th:text="${course.category.displayName}">
+                    Web Development
+                </p>
+
+                <h2 class="h5 fw-bold"
+                    th:text="${course.title}">
+                    Course title
+                </h2>
+
+                <p class="text-secondary small">
+                    Instructor:
+                    <span th:text="${course.instructorName}">
+                        Instructor
+                    </span>
+                </p>
+
+                <p class="text-secondary flex-grow-1"
+                   th:text="${course.description}">
+                    Course description
+                </p>
+
+                <div class="d-flex justify-content-between
+                            border-top pt-3 mb-3">
+
+                    <span>
+                        <span th:text="${course.durationWeeks}">
+                            6
+                        </span>
+                        weeks
+                    </span>
+
+                    <strong>
+                        $<span th:text="${course.price}">
+                            49.00
+                        </span>
+                    </strong>
+                </div>
+
+                <a class="btn btn-outline-primary"
+                   th:href="@{/courses/{id}(id=${course.id})}">
+                    View Details
+                </a>
+            </article>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <nav class="mt-5"
+         th:if="${coursePage.totalPages > 1}"
+         aria-label="Course result pages">
+
+        <ul class="pagination justify-content-center">
+
+            <li class="page-item"
+                th:classappend="${coursePage.first}
+                    ? 'disabled'">
+
+                <a class="page-link"
+                   th:href="@{/courses(
+                       page=${coursePage.number - 1},
+                       keyword=${keyword},
+                       category=${selectedCategory},
+                       difficulty=${selectedDifficulty},
+                       sortBy=${sortBy},
+                       direction=${direction}
+                   )}">
+                    Previous
+                </a>
+            </li>
+
+            <li class="page-item"
+                th:each="pageNumber :
+                    ${#numbers.sequence(
+                        0,
+                        coursePage.totalPages - 1
+                    )}"
+                th:classappend="${pageNumber ==
+                    coursePage.number} ? 'active'">
+
+                <a class="page-link"
+                   th:text="${pageNumber + 1}"
+                   th:href="@{/courses(
+                       page=${pageNumber},
+                       keyword=${keyword},
+                       category=${selectedCategory},
+                       difficulty=${selectedDifficulty},
+                       sortBy=${sortBy},
+                       direction=${direction}
+                   )}">
+                    1
+                </a>
+            </li>
+
+            <li class="page-item"
+                th:classappend="${coursePage.last}
+                    ? 'disabled'">
+
+                <a class="page-link"
+                   th:href="@{/courses(
+                       page=${coursePage.number + 1},
+                       keyword=${keyword},
+                       category=${selectedCategory},
+                       difficulty=${selectedDifficulty},
+                       sortBy=${sortBy},
+                       direction=${direction}
+                   )}">
+                    Next
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>

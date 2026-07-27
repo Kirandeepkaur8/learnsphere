@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: head('How It Works')}"></head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<nav th:replace="~{fragments :: navigation}"></nav>
+
+<main class="container flex-grow-1 py-5">
+
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">How LearnSphere Works</h1>
+
+        <p class="lead text-secondary">
+            Find the right course in three simple steps.
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="step-card h-100">
+                <span class="step-number">1</span>
+                <h2 class="h4">Browse</h2>
+                <p>
+                    View the course catalogue and search by course title,
+                    course code or instructor.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="step-card h-100">
+                <span class="step-number">2</span>
+                <h2 class="h4">Filter</h2>
+                <p>
+                    Filter available courses by category and difficulty,
+                    then sort the results.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="step-card h-100">
+                <span class="step-number">3</span>
+                <h2 class="h4">Review</h2>
+                <p>
+                    Open the course details to review the instructor,
+                    duration, price and description.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="text-center mt-5">
+        <a class="btn btn-primary btn-lg"
+           th:href="@{/courses}">
+            Explore Courses
+        </a>
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>
