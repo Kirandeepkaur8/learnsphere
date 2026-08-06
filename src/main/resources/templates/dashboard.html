@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments :: head('Dashboard')}"></head>
+
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+<nav th:replace="~{fragments :: navigation}"></nav>
+
+<main class="container flex-grow-1 py-5">
+
+    <div class="dashboard-banner mb-4">
+
+        <p class="text-uppercase fw-bold mb-2">
+            Your Dashboard
+        </p>
+
+        <h1 class="display-6 fw-bold mb-2"
+            th:text="${'Welcome, ' + user.firstName + '!'}">
+            Welcome
+        </h1>
+
+        <p class="mb-0">
+            Signed in as
+
+            <strong th:text="${user.email}">
+                email@example.com
+            </strong>
+
+            · Role:
+
+            <strong th:text="${user.role.displayName}">
+                Student
+            </strong>
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-6 col-lg-4">
+            <div class="feature-card h-100">
+
+                <h2 class="h4">
+                    Course Catalogue
+                </h2>
+
+                <p>
+                    <strong th:text="${courseCount}">
+                        0
+                    </strong>
+
+                    courses are currently available.
+                </p>
+
+                <a class="btn btn-primary"
+                   th:href="@{/courses}">
+                    Browse Courses
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4"
+             sec:authorize="hasAnyAuthority('ROLE_INSTRUCTOR','ROLE_ADMIN')">
+
+            <div class="feature-card h-100">
+
+                <h2 class="h4">
+                    Create a Course
+                </h2>
+
+                <p>
+                    Add a new validated course to LearnSphere.
+                </p>
+
+                <a class="btn btn-primary"
+                   th:href="@{/courses/new}">
+                    Add Course
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4"
+             sec:authorize="hasAuthority('ROLE_ADMIN')">
+
+            <div class="feature-card h-100 admin-highlight">
+
+                <h2 class="h4">
+                    Administration
+                </h2>
+
+                <p>
+                    Manage courses, user roles and account access.
+                </p>
+
+                <a class="btn btn-dark"
+                   th:href="@{/admin}">
+                    Open Admin Area
+                </a>
+            </div>
+        </div>
+
+        <div class="col-12"
+             sec:authorize="hasAuthority('ROLE_STUDENT')">
+
+            <div class="alert alert-info mb-0">
+                Student accounts can browse courses.
+                Course creation and administration are protected.
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>

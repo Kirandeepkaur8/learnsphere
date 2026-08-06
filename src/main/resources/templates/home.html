@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments :: head('Home')}"></head>
 
@@ -9,34 +10,38 @@
 
 <main class="flex-grow-1">
 
-    <section class="hero-section text-white">
-        <div class="container py-5">
-            <div class="row align-items-center py-5">
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center hero-content">
                 <div class="col-lg-8">
 
-                    <p class="text-uppercase fw-bold">
+                    <span class="badge text-bg-warning mb-3 px-3 py-2">
                         Learn with purpose
-                    </p>
+                    </span>
 
-                    <h1 class="display-3 fw-bold">
+                    <h1 class="display-3 fw-bold mb-3">
                         Build practical skills for your future.
                     </h1>
 
-                    <p class="lead my-4">
+                    <p class="lead mb-4">
                         LearnSphere helps students discover structured,
-                        career-focused online courses.
+                        career-focused online courses designed to support
+                        their educational and professional goals.
                     </p>
 
-                    <a class="btn btn-warning btn-lg me-2"
-                       th:href="@{/courses}">
-                        Browse Courses
-                    </a>
+                    <div class="d-flex flex-wrap gap-3">
 
-                    <a class="btn btn-outline-light btn-lg"
-                       th:href="@{/how-it-works}">
-                        How It Works
-                    </a>
+                        <a class="btn btn-warning btn-lg px-4"
+                           th:href="@{/courses}">
+                            Browse Courses
+                        </a>
 
+                        <a class="btn btn-outline-light btn-lg px-4"
+                           th:href="@{/how-it-works}">
+                            How It Works
+                        </a>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,41 +50,94 @@
     <section class="container py-5">
 
         <div class="text-center mb-5">
-            <h2 class="fw-bold">Why LearnSphere?</h2>
 
-            <p class="text-secondary">
+            <h2 class="display-6 fw-bold">
+                Why LearnSphere?
+            </h2>
+
+            <p class="text-secondary lead">
                 A simple and organized platform for modern learning.
             </p>
+
         </div>
 
         <div class="row g-4">
 
             <div class="col-md-4">
                 <div class="feature-card h-100">
-                    <h3 class="h5 fw-bold">Explore</h3>
-                    <p>
-                        Browse courses from several professional categories.
+
+                    <div class="feature-number mb-3">
+                        01
+                    </div>
+
+                    <h3 class="h4 fw-bold">
+                        Explore
+                    </h3>
+
+                    <p class="text-secondary mb-0">
+                        Browse courses from several professional categories
+                        and find learning opportunities relevant to your goals.
                     </p>
+
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="feature-card h-100">
-                    <h3 class="h5 fw-bold">Compare</h3>
-                    <p>
-                        Compare course level, duration, instructor and price.
+
+                    <div class="feature-number mb-3">
+                        02
+                    </div>
+
+                    <h3 class="h4 fw-bold">
+                        Compare
+                    </h3>
+
+                    <p class="text-secondary mb-0">
+                        Compare course difficulty, duration, instructor,
+                        category and price before making a decision.
                     </p>
+
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="feature-card h-100">
-                    <h3 class="h5 fw-bold">Progress</h3>
-                    <p>
-                        Choose learning opportunities that match your goals.
+
+                    <div class="feature-number mb-3">
+                        03
+                    </div>
+
+                    <h3 class="h4 fw-bold">
+                        Progress
+                    </h3>
+
+                    <p class="text-secondary mb-0">
+                        Choose structured learning opportunities that support
+                        your academic and career development.
                     </p>
+
                 </div>
             </div>
+
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container py-5 text-center">
+
+            <h2 class="fw-bold mb-3">
+                Ready to start learning?
+            </h2>
+
+            <p class="lead text-secondary mb-4">
+                Explore the LearnSphere course catalogue today.
+            </p>
+
+            <a class="btn btn-primary btn-lg px-4"
+               th:href="@{/courses}">
+                View All Courses
+            </a>
 
         </div>
     </section>

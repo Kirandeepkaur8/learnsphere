@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: head('Register')}"></head>
+
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+<nav th:replace="~{fragments :: navigation}"></nav>
+
+<main class="container flex-grow-1 py-5">
+
+    <div class="auth-card auth-card-wide mx-auto">
+
+        <div class="text-center mb-4">
+            <div class="auth-icon mx-auto">LS</div>
+
+            <h1 class="h2 fw-bold mt-3">
+                Create Your Account
+            </h1>
+
+            <p class="text-secondary">
+                Register as a Student or Instructor.
+                Administrator accounts are created internally.
+            </p>
+        </div>
+
+        <form th:action="@{/register}"
+              th:object="${registrationForm}"
+              method="post"
+              novalidate>
+
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <label for="firstName"
+                           class="form-label">
+                        First Name
+                    </label>
+
+                    <input id="firstName"
+                           type="text"
+                           th:field="*{firstName}"
+                           class="form-control"
+                           th:classappend="${#fields.hasErrors('firstName')} ? ' is-invalid'">
+
+                    <div class="invalid-feedback"
+                         th:errors="*{firstName}">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="lastName"
+                           class="form-label">
+                        Last Name
+                    </label>
+
+                    <input id="lastName"
+                           type="text"
+                           th:field="*{lastName}"
+                           class="form-control"
+                           th:classappend="${#fields.hasErrors('lastName')} ? ' is-invalid'">
+
+                    <div class="invalid-feedback"
+                         th:errors="*{lastName}">
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="email"
+                           class="form-label">
+                        Email
+                    </label>
+
+                    <input id="email"
+                           type="email"
+                           th:field="*{email}"
+                           class="form-control"
+                           th:classappend="${#fields.hasErrors('email')} ? ' is-invalid'">
+
+                    <div class="invalid-feedback"
+                         th:errors="*{email}">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="password"
+                           class="form-label">
+                        Password
+                    </label>
+
+                    <input id="password"
+                           type="password"
+                           th:field="*{password}"
+                           class="form-control"
+                           autocomplete="new-password"
+                           th:classappend="${#fields.hasErrors('password')} ? ' is-invalid'">
+
+                    <div class="form-text">
+                        Use at least 8 characters.
+                    </div>
+
+                    <div class="invalid-feedback"
+                         th:errors="*{password}">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="confirmPassword"
+                           class="form-label">
+                        Confirm Password
+                    </label>
+
+                    <input id="confirmPassword"
+                           type="password"
+                           th:field="*{confirmPassword}"
+                           class="form-control"
+                           autocomplete="new-password"
+                           th:classappend="${#fields.hasErrors('confirmPassword')} ? ' is-invalid'">
+
+                    <div class="invalid-feedback"
+                         th:errors="*{confirmPassword}">
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="role"
+                           class="form-label">
+                        Account Type
+                    </label>
+
+                    <select id="role"
+                            th:field="*{role}"
+                            class="form-select"
+                            th:classappend="${#fields.hasErrors('role')} ? ' is-invalid'">
+
+                        <option value="">
+                            Select an account type
+                        </option>
+
+                        <option
+                                th:each="item : ${registrationRoles}"
+                                th:value="${item}"
+                                th:text="${item.displayName}">
+                            Student
+                        </option>
+                    </select>
+
+                    <div class="invalid-feedback"
+                         th:errors="*{role}">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary w-100 mt-4">
+                Create Account
+            </button>
+        </form>
+
+        <p class="text-center text-secondary mt-4 mb-0">
+            Already registered?
+
+            <a th:href="@{/login}">
+                Sign in
+            </a>
+        </p>
+    </div>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: head('Login')}"></head>
+
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+<nav th:replace="~{fragments :: navigation}"></nav>
+
+<main class="container flex-grow-1 py-5">
+
+    <div class="auth-card mx-auto">
+
+        <div class="text-center mb-4">
+            <div class="auth-icon mx-auto">LS</div>
+
+            <h1 class="h2 fw-bold mt-3">
+                Welcome Back
+            </h1>
+
+            <p class="text-secondary">
+                Sign in to your LearnSphere account.
+            </p>
+        </div>
+
+        <div th:if="${param.error}"
+             class="alert alert-danger">
+
+            The email or password is incorrect,
+            or the account is disabled.
+        </div>
+
+        <div th:if="${param.logout}"
+             class="alert alert-success">
+
+            You have logged out successfully.
+        </div>
+
+        <div th:if="${param.registered}"
+             class="alert alert-success">
+
+            Your account was created successfully.
+            Please sign in.
+        </div>
+
+        <form th:action="@{/login}"
+              method="post">
+
+            <div class="mb-3">
+                <label for="username"
+                       class="form-label">
+                    Email
+                </label>
+
+                <input id="username"
+                       name="username"
+                       type="email"
+                       class="form-control"
+                       autocomplete="username"
+                       required
+                       autofocus>
+            </div>
+
+            <div class="mb-3">
+                <label for="password"
+                       class="form-label">
+                    Password
+                </label>
+
+                <input id="password"
+                       name="password"
+                       type="password"
+                       class="form-control"
+                       autocomplete="current-password"
+                       required>
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary w-100">
+                Sign In
+            </button>
+        </form>
+
+        <p class="text-center text-secondary mt-4 mb-0">
+            New to LearnSphere?
+
+            <a th:href="@{/register}">
+                Create an account
+            </a>
+        </p>
+    </div>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>

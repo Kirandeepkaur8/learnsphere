@@ -14,7 +14,10 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
     boolean existsByCourseCodeIgnoreCase(String courseCode);
-
+    boolean existsByCourseCodeIgnoreCaseAndIdNot(
+            String courseCode,
+            Long id
+    );
     @Query("""
             SELECT c FROM Course c
             WHERE (

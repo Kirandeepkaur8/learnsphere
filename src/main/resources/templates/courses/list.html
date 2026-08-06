@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments :: head('Courses')}"></head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -21,6 +23,7 @@
         </div>
 
         <a class="btn btn-primary"
+           sec:authorize="hasAnyAuthority('ROLE_INSTRUCTOR','ROLE_ADMIN')"
            th:href="@{/courses/new}">
             Add Course
         </a>

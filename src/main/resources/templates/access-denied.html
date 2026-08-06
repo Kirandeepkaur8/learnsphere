@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: head('Access Denied')}"></head>
+
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+<nav th:replace="~{fragments :: navigation}"></nav>
+
+<main class="container flex-grow-1 py-5
+             d-flex align-items-center justify-content-center">
+
+    <div class="auth-card text-center">
+
+        <div class="display-1 fw-bold text-danger">
+            403
+        </div>
+
+        <h1 class="h2 fw-bold">
+            Access Denied
+        </h1>
+
+        <p class="text-secondary">
+            You are signed in, but your role does not permit this action.
+        </p>
+
+        <a class="btn btn-primary"
+           th:href="@{/dashboard}">
+            Return to Dashboard
+        </a>
+    </div>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>
