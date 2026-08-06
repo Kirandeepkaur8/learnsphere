@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "templates/courses")
+@Table(name = "courses")
 public class Course {
 
     @Id
@@ -80,6 +80,7 @@ public class Course {
     private LocalDateTime createdAt;
 
     @PrePersist
+    @PreUpdate
     public void prepareForSaving() {
         if (courseCode != null) {
             courseCode = courseCode.trim().toUpperCase();
