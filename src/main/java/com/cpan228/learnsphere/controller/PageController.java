@@ -20,4 +20,9 @@ public class PageController {
     public String showHowItWorksPage() {
         return "how-it-works";
     }
+
+    @GetMapping("/access-denied")
+    public String showAccessDeniedPage() {
+        return "access-denied";
+    }
 }

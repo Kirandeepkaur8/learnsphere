@@ -1,10 +1,246 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: head('Admin')}"></head>
+
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+<nav th:replace="~{fragments :: navigation}"></nav>
+
+<main class="container flex-grow-1 py-5">
+
+    <div class="dashboard-banner mb-4">
+
+        <span class="badge text-bg-warning mb-3">
+            Administrator Only
+        </span>
+
+        <h1 class="display-6 fw-bold">
+            LearnSphere Administration
+        </h1>
+
+        <p class="mb-0">
+            Manage courses, account roles and account access.
+        </p>
+    </div>
+
+    <div th:if="${adminSuccess}"
+         class="alert alert-success"
+         th:text="${adminSuccess}">
+    </div>
+
+    <div th:if="${adminError}"
+         class="alert alert-danger"
+         th:text="${adminError}">
+    </div>
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-6">
+            <div class="feature-card">
+
+                <p class="text-secondary mb-1">
+                    Total Courses
+                </p>
+
+                <strong class="display-5"
+                        th:text="${courseCount}">
+                    0
+                </strong>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="feature-card">
+
+                <p class="text-secondary mb-1">
+                    Registered Users
+                </p>
+
+                <strong class="display-5"
+                        th:text="${userCount}">
+                    0
+                </strong>
+            </div>
+        </div>
+    </div>
+
+    <section class="feature-card mb-4">
+
+        <div class="d-flex flex-wrap
+                    justify-content-between
+                    align-items-center gap-2 mb-3">
+
+            <div>
+                <h2 class="h4 mb-1">
+                    Course Management
+                </h2>
+
+                <p class="text-secondary mb-0">
+                    Edit or delete course records.
+                </p>
+            </div>
+
+            <a class="btn btn-primary"
+               th:href="@{/courses/new}">
+                Add Course
+            </a>
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Course</th>
+                    <th>Instructor</th>
+                    <th>Price</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr th:each="course : ${courses}">
+
+                    <td th:text="${course.courseCode}">
+                        WEB-101
+                    </td>
+
+                    <td th:text="${course.title}">
+                        Course
+                    </td>
+
+                    <td th:text="${course.instructorName}">
+                        Instructor
+                    </td>
+
+                    <td>
+                        $<span th:text="${course.price}">
+                            0.00
+                        </span>
+                    </td>
+
+                    <td class="text-end">
+
+                        <a class="btn btn-sm btn-outline-primary"
+                           th:href="@{/courses/{id}/edit(id=${course.id})}">
+                            Edit
+                        </a>
+
+                        <form method="post"
+                              class="d-inline"
+                              th:action="@{/courses/{id}/delete(id=${course.id})}">
+
+                            <button type="submit"
+                                    class="btn btn-sm btn-outline-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="feature-card">
+
+        <h2 class="h4">
+            User Management
+        </h2>
+
+        <p class="text-secondary">
+            Change roles or enable and disable accounts.
+        </p>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th class="text-end">Account Action</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr th:each="user : ${users}">
+
+                    <td th:text="${user.fullName}">
+                        User Name
+                    </td>
+
+                    <td th:text="${user.email}">
+                        email@example.com
+                    </td>
+
+                    <td>
+                        <form method="post"
+                              class="d-flex gap-2"
+                              th:action="@{/admin/users/{id}/role(id=${user.id})}">
+
+                            <select name="role"
+                                    class="form-select form-select-sm">
+
+                                <option
+                                        th:each="roleItem : ${roles}"
+                                        th:value="${roleItem}"
+                                        th:text="${roleItem.displayName}"
+                                        th:selected="${roleItem == user.role}">
+                                    Student
+                                </option>
+                            </select>
+
+                            <button type="submit"
+                                    class="btn btn-sm btn-outline-primary">
+                                Save
+                            </button>
+                        </form>
+                    </td>
+
+                    <td>
+                        <span class="badge"
+                              th:classappend="${user.enabled}
+                                    ? ' text-bg-success'
+                                    : ' text-bg-secondary'"
+                              th:text="${user.enabled
+                                    ? 'Enabled'
+                                    : 'Disabled'}">
+                            Enabled
+                        </span>
+                    </td>
+
+                    <td class="text-end">
+
+                        <form method="post"
+                              th:action="@{/admin/users/{id}/toggle(id=${user.id})}">
+
+                            <button type="submit"
+                                    class="btn btn-sm btn-outline-dark"
+                                    th:text="${user.enabled
+                                        ? 'Disable'
+                                        : 'Enable'}">
+                                Disable
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
 </body>
 </html>
