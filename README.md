@@ -63,6 +63,140 @@ Kirandeep Kaur independently completed Deliverable 2, including:
 - Administrator user-role and account-status management
 - Security testing and interface improvements
 
+
+## Deliverable 3 — QA / MySQL Testing  - Maheen 
+
+### QA / MySQL Profile
+
+The QA environment was configured to use a separate MySQL database for testing and persistence verification.
+
+The QA database is:
+
+`learnsphere_qa`
+
+The database was created using:
+
+```sql
+CREATE DATABASE learnsphere_qa;
+
+
+The QA Spring profile is stored in:
+
+src/main/resources/application-qa.properties
+
+
+The QA profile uses the following MySQL configuration:
+
+spring.application.name=LearnSphere
+
+
+spring.datasource.url=jdbc:mysql://localhost:3306/learnsphere_qa
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.username=${MYSQL_USERNAME:root}
+spring.datasource.password=${MYSQL_PASSWORD:}
+
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.defer-datasource-initialization=false
+spring.jpa.open-in-view=false
+
+
+spring.sql.init.mode=never
+
+
+spring.h2.console.enabled=false
+
+
+MySQL Dependency
+
+MySQL Connector/J was added to pom.xml so that the Spring Boot application can connect to the MySQL QA database.
+
+<dependency>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+    <scope>runtime</scope>
+</dependency>
+
+Running the QA Profile
+
+The QA profile can be started using:
+
+mvn spring-boot:run -Dspring-boot.run.profiles=qa
+
+The application log was verified to show:
+
+The following 1 profile is active: "qa"
+
+The application was also verified to successfully connect to:
+
+jdbc:mysql://localhost:3306/learnsphere_qa
+
+The MySQL connection was confirmed through the Spring Boot startup logs, which showed MySQL Connector/J being used successfully.
+
+MySQL Persistence Verification
+
+The QA database was checked directly through MySQL.
+
+The application successfully created and persisted the app_users table.
+
+The following query was used to verify the demo accounts:
+
+SELECT email, user_role FROM app_users;
+
+The database returned:
+
+admin@learnsphere.ca       ADMIN
+instructor@learnsphere.ca  INSTRUCTOR
+student@learnsphere.ca     STUDENT
+
+This confirmed that the application was successfully persisting user information in the MySQL QA database.
+
+Course Data Verification
+
+The QA database was also checked for course persistence using:
+
+SELECT COUNT(*) FROM courses;
+
+The QA database initially contained:
+
+0
+
+courses because SQL initialization was intentionally disabled for the QA profile:
+
+spring.sql.init.mode=never
+
+This confirms that the QA environment uses the MySQL database directly rather than automatically loading the default SQL seed data.
+
+H2 Console Verification
+
+The H2 console was disabled in the QA environment using:
+
+spring.h2.console.enabled=false
+
+The /h2-console endpoint was tested while the QA profile was active.
+
+The request did not provide access to the H2 console and was redirected to the application's login page.
+
+This confirms that the H2 console is not available as a QA database interface.
+
+QA Testing Summary
+
+The following QA requirements were completed and verified:
+
+Created a dedicated feature/deliverable3-qa-maheen branch.
+Added MySQL Connector/J to the project.
+Created the learnsphere_qa MySQL database.
+Added the application-qa.properties Spring profile.
+Configured Spring Boot to connect to MySQL in the QA environment.
+Verified that the qa Spring profile is active when the application is started.
+Verified a successful connection to the MySQL QA database.
+Verified user persistence in MySQL.
+Verified that H2 console access is disabled in QA.
+Tested the application while running with the QA profile.
+Deliverable 3 Contribution
+
+Maheen Khan completed the QA/MySQL portion of Deliverable 3, including QA profile configuration, MySQL database setup, MySQL persistence verification, H2 console verification, and QA environment testing.
+
 ## Future Development
 
 The final project will extend LearnSphere with:
