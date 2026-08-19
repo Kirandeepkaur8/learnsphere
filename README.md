@@ -314,4 +314,13 @@ Deliverable 3 work included:
 * Verified MySQL persistence.
 * Performed final application integration and build testing.
 
-Additional team-member contributions should be documented here only when their completed work is included in the final repository.
+### Maheen Khan
+
+- Worked on QA/MySQL environment verification.
+- Verified the qa Spring profile configuration.
+- Verified connection to the learnsphere_qa MySQL database.
+- Verified that the QA profile uses MySQL persistent storage.
+- Verified user/data persistence in MySQL.
+- Verified that the H2 Console is disabled in the QA environment.
+- Tested the application while running with the QA profile.
+- Contributed QA/MySQL documentation and testing notes.
