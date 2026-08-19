@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: LearnSphere
+
+  profiles:
+    default: dev
+
+  jpa:
+    open-in-view: false
+
+  thymeleaf:
+    cache: false
+
+server:
+  error:
+    include-message: always
