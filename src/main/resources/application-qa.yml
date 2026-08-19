@@ -1,0 +1,31 @@
+spring:
+  config:
+    activate:
+      on-profile: qa
+
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/learnsphere_qa}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+
+  h2:
+    console:
+      enabled: false
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: none
+    defer-datasource-initialization: false
+
+  sql:
+    init:
+      mode: always
+      platform: mysql
+      schema-locations: classpath:schema-mysql.sql
+      data-locations: classpath:data-mysql.sql
+      continue-on-error: false
+
+server:
+  port: 8081
